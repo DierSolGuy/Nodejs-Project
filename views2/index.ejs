@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/header.ejs') %> <!--Including the header file from header.ejs-->
+
+<body>
+
+    
+<%- include('./partials/nav.ejs') %> <!-- including the nav contents from different file -->
+       
+
+        <div class="blogs content">
+        <h2> All Blogs</h2>
+
+        <!-- Displaying EJS contents of the blogs array in viewengine.js-->
+        <% if(blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+
+                <a href="/blogs/<%= blog._id %>" class="single">
+                    <h3 class="title"> <%= blog.title %> </h3>
+                    <p class="snippet"><%= blog.snippet %></p>
+                </a>
+                
+
+            <% }) %>
+            
+        <% } else { %>
+
+            <p> There are no blogs to dispaly..! </p>
+            
+        <% } %>
+
+
+    </div>
+
+    <%- include('./partials/footer.ejs')%> <!-- Including the footer from footer.ejs -->
+</body>
+</html>

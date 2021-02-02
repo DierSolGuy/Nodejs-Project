@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/header.ejs') %> <!--Including the header file from header.ejs-->
+
+<body>
+
+    <%- include('./partials/nav.ejs') %> <!-- including the nav contents from different file -->
+
+    <div class="details content">
+        <h2> <%= blog.title %> </h2>
+        <div class="content">
+            <p> <%= blog.body%> </p>
+        </div>
+        <a data-doc="<%= blog._id%>" class="delete"> Delete </a>
+    </div>
+
+    <%- include('./partials/footer.ejs')%> <!-- Including the footer from footer.ejs -->
+
+    <script>
+        const trashcan = document.querySelector('a.delete');
+
+        trashcan.addEventListener('click', (e) => {
+            // Sending a delete reuqest to the server
+            const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+            //ajax request for deleting blogs
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+             .then( response => response.json())
+             .then((data) => {
+                 console.log(data);
+                 // redirecting from the front-end
+                 window.location.href = data.redirect
+                })
+             .catch( err => console.log(err));
+        });
+
+    </script>
+</body>
+</html>
